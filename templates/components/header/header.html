@@ -1,0 +1,167 @@
+<!-- header -->
+{% load static %}
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+<div class="agileits_header">
+  <div class="w3l_offers">
+    <a href=" ">Today's special Offers !</a>
+  </div>
+  <div class="w3l_search">
+    <form action="#" method="post">
+      <input
+        type="text"
+        name="Product"
+        value="Search a product..."
+        onfocus="this.value = '';"
+        onblur="if (this.value == '') {this.value = 'Search a product...';}"
+        required=""
+      />
+      <input type="submit" value=" " />
+    </form>
+  </div>
+
+  <!-- <div class="w3l_header_right">
+      <ul>
+        <li class="dropdown profile_details_drop">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            ><i class="fa fa-user" aria-hidden="true"></i
+            ><span class="caret"></span
+          ></a>
+          <div class="mega-dropdown-menu">
+            <div class="w3ls_vegetables">
+              <ul class="dropdown-menu drp-mnu">
+                <li><a href="reg">Login</a></li>
+                <li><a href="reg">Sign Up</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div> -->
+
+  <div class="w3l_header_right1">
+    <!-- <h2><a href="/contact/">Contact Us</a></h2> -->
+
+    {% if request.user.is_authenticated %}
+    <span class="badge bg-c-red">5</span
+    ><i
+      class="fa fa-cart-plus"
+      style="
+        color: aliceblue;
+        font-size: 30px;
+        margin-right: 70px;
+        margin-top: 12px;
+      "
+    >
+    </i>
+    <div class="w3l_header_right1">
+      <div class="contain">
+        <div class="dropdown">
+          <div class="profile">
+            <a href=""></a
+            ><i
+              class="fa fa-user-circle"
+              class="dropbtn"
+              style="
+                color: aliceblue;
+                font-size: 30px;
+                margin-right: 80px;
+                padding-top: 8px;
+              "
+              ><div class="" style="font-size: 12px; color: aliceblue">
+                {{request.user.first_name}}
+              </div></i
+            >
+            <div class="dropdown-content">
+              <ul>
+                <a href=""
+                  ><li><i class="fa fa-user"></i><span>Profiles</span></li></a
+                >
+                <a href="{% url 'changepass' %}"
+                  ><li>
+                    <i class="fa fa-key"></i><span>Change password</span>
+                  </li></a
+                >
+                <a href="{% url 'logout' %}"
+                  ><li>
+                    <i class="fa fa-sign-out"></i> <span>Logout</span>
+                  </li></a
+                >
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <a href="" style="color: aliceblue; font-size: 20px; margin-right: 80px;" > <i class="fa fa-user-circle"  style="size: 200px "></i>
+         {{request.user.first_name}}</a> -->
+    <!-- &nbsp;|
+      <a href="{% url 'logout' %}"  style="color: aliceblue; font-size: 20px;">Logout</a> -->
+    {% else %}
+    <div
+      class="user_links pt-1"
+      style="
+        color: rgb(4, 128, 236);
+        font-size: 20px;
+        margin-right: 90px;
+        margin-top: 6px;
+        background-color: rgb(244, 248, 247);
+      "
+    >
+      <a href="{% url 'login' %}">Login</a>&nbsp;|
+      <a href="{% url 'reg' %}">Register</a>&nbsp;
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="clearfix"></div>
+</div>
+
+<!-- script-for sticky-nav -->
+<script>
+  $(document).ready(function () {
+    var navoffeset = $(".agileits_header").offset().top;
+    $(window).scroll(function () {
+      var scrollpos = $(window).scrollTop();
+      if (scrollpos >= navoffeset) {
+        $(".agileits_header").addClass("fixed");
+      } else {
+        $(".agileits_header").removeClass("fixed");
+      }
+    });
+  });
+</script>
+
+<!-- //script-for sticky-nav -->
+<div class="logo_products">
+  <div class="container">
+    <div class="w3ls_logo_products_left animate__animated animate__bounce">
+      <h1>
+        <a href="{% url 'home' %}"><span>Aausadhi</span> Pasal</a>
+      </h1>
+    </div>
+
+    <div class="w3ls_logo_products_left1">
+      <ul class="phone_email">
+        <li><i class="fa fa-phone" aria-hidden="true"></i>(+977) 9869333066</li>
+        <li>
+          <i class="fa fa-envelope-o" aria-hidden="true"></i
+          ><a href="#">aausadhipasal@gmail.com</a>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<!-- //header -->

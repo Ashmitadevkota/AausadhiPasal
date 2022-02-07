@@ -1,0 +1,69 @@
+
+
+{% load static %}
+{% include 'components/base/base-top.html' %}
+{% include 'components/header/header.html' %}
+<link rel="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+<link rel="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+
+
+<div class="container d-flex justify-content-center my-5" style="background-color: rgb(166, 219, 179);margin-bottom: 100px;">
+    <div class="row my-2 mx-2 main">
+       
+        <div class="col-md-4 col-12 mycol">
+         <img src="\static\images\register.jpg" width="100%" height="100%" style="margin-top: 50px;"> </div>
+       
+        <div class="col-md-8 col-12 xcol">
+            <h2 class="title pt-5 pb-3">Sign up</h2>
+
+            <form action=" " class="myform" method="post" novalidate>
+                {% csrf_token %}
+                <div class="row rone">
+                    <div class="form-group col-md-6 fone py-3"> 
+                        <input type="text" class="form-control" , name = "first_name" placeholder="First name"> 
+                        <div class="errors" style="font-size: 20px; color: red;">{{form.errors.first_name}}</div>
+                     </div>
+                    
+                    <div class="form-group col-md-6 ftwo py-3"> 
+                        <input type="text" class="form-control" name = "last_name" placeholder="Last name"> 
+                        <div class="errors" style="font-size: 20px; color: red;">{{form.errors.last_name}}</div>
+                    </div>
+                </div>
+                <div class="row rtwo">
+                    <div class="form-group col-md-6 fthree py-3"> <input type="text" class="form-control jk" name = "username" placeholder="Username">
+                        <div class="errors" style="font-size: 20px; color: red;">{{form.errors.username}}</div> </div>
+                    <div class="form-group col-md-6 ffour py-3"> <input type="email" class="form-control lm" name = "email" placeholder="aausadhipasal@gmail.com">
+                        <div class="errors" style="font-size: 20px; color: red;">{{form.errors.email}}</div> </div>
+                </div>
+                <div class="row rthree">
+                    <div class="form-group col-md-6 ffive py-3"> <input type="password" class="form-control" name = "password1"  placeholder="Password">
+                        <div class="errors" style="font-size: 20px; color: red;">{{form.errors.password1}}</div> </div>
+                    <div class="form-group col-md-6 fsix py-3"> <input type="password" class="form-control" name = "password2" placeholder="Confirm Password"> 
+                        <div class="errors" style="font-size: 20px; color: red;">{{form.errors.password2}}</div></div>
+                </div>
+                <div class="row rfour">
+                    <div class="form-group col-md-6 fseven py-3"> <button type="submit"  class="btn btn-primary"><span>Create account</span></button> </div>
+                    <div class="form-group col-md-6 feight py-3">
+                        <p class="text-muted">Already have an account?<br><a href="{% url 'login' %}">Sign in</a></p>
+                    </div>
+                </div>
+            </form>
+
+            {% for message in messages %}
+            <div class="errors" style="font-size: 20px; color: red;">{{message}}</div></div>
+            {% endfor %}
+          
+            
+
+
+        </div>
+    </div>
+</div>
+
+
+	
+
+{% include 'components/footer/footer.html' %}
+{% include 'components/base/base-bottom.html' %}

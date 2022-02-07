@@ -1,0 +1,57 @@
+{% load static %} {% include 'components/base/base-top.html' %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+  crossorigin="anonymous"
+/>
+
+{% block content %}
+
+  <form action="" method="post" novalidate>
+
+    {% csrf_token %}
+    <div
+      class="container height-100 d-flex justify-content-center align-items-center"
+    >
+      <div class="position-relative">
+        <div class="card p-2 text-center" style="background-color:  rgb(166, 219, 179);">
+          <h6>
+            Please enter the one time password <br />
+            to verify your account
+          </h6>
+          <div><span>A code has been sent to</span> <small>email</small></div>
+          <br />
+          {{form.otp}}
+          <div class="mt-4">
+            <button
+              type="submit"
+              value="Verify"
+              class="btn btn-primary px-4 validate"
+            >
+              Validate
+            </button>
+          </div>
+          <br />
+          <div class="errors" style="font-size: 20px; color: red;">{{form.otp.errors}}</div>
+          
+
+          {% for message in messages %}
+          <div class="errors" style="font-size: 15px; color: red;">{{message}}  </div>
+          {% endfor %}
+
+        </div>
+       
+      </div>
+    </div>
+    </form>
+  </form>
+
+
+{% endblock content %}
+
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+  crossorigin="anonymous"
+></script>
