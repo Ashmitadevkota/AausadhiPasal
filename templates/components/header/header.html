@@ -1,6 +1,7 @@
 <!-- header -->
 {% load static %}
 
+
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <link
   rel="stylesheet"
@@ -53,16 +54,7 @@
 
     {% if request.user.is_authenticated %}
     <span class="badge bg-c-red">5</span
-    ><i
-      class="fa fa-cart-plus"
-      style="
-        color: aliceblue;
-        font-size: 30px;
-        margin-right: 70px;
-        margin-top: 12px;
-      "
-    >
-    </i>
+    > <a href="{% url 'cart' %}"><i class="fa fa-cart-plus" style="color: aliceblue;font-size: 30px;margin-right: 70px; margin-top: 12px;"> </i></a>
     <div class="w3l_header_right1">
       <div class="contain">
         <div class="dropdown">
