@@ -7,10 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta
-      name="keywords"
-      content="aausadhipasal"
-    />
+    <meta name="keywords" content="aausadhipasal" />
     <script type="application/x-javascript">
       addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
       	function hideURLbar(){ window.scrollTo(0,1); }
@@ -45,11 +42,15 @@
     />
 
     <!--animate.css -->
-      <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
 
     <!-- jQuery -->
+
     <script src="{% static 'static/js/jquery-1.11.1.min.js' %}"></script>
 
     <!-- Font families -->
@@ -85,6 +86,47 @@
         });
       });
     </script>
+
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getToken("csrftoken");
+
+      // function getToken(name){
+      // var cookieValue = null;
+      // if(document.cookie && document.cookie !== ''){
+      //     var cookies = document.cookie.split(';');
+      //     for(var i =0; i<cookies.length;i++){
+      //       var cookie = cookies[i].trim();
+
+      //       if (cookie.substring(0,name.length +1)===(name + '=')){
+      //         cookieValue=decodeURIComponent(cookie.substring(name.length +1));
+      //         break;
+      //       }
+      //     }
+      //   }
+      //   return cookieValue;
+      // }
+      // var csrftoken = getToken('csrftoken');
+    </script>
+
     <body></body>
   </head>
 </html>
