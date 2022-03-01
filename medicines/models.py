@@ -12,10 +12,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-Category=(
-    ('Medicines', 'Medicines'),
-    ('Personal Care','Personal Care')
-)
+
 
 Province=(
     ('Province 1', 'Province 1'),
@@ -38,11 +35,11 @@ class Customer(models.Model):
 class Product(models.Model):
     product_id = models.AutoField
     product_name = models.CharField(max_length=50)
-    category = models.CharField(choices=Category, default='Medicines', max_length=100)
-    subcategory = models.CharField(max_length=50, default="")
+    brand = models.CharField(max_length=200, default="")
     price = models.IntegerField(default=0)
-    description = models.CharField(max_length=300)
+    composition = models.CharField(max_length=300)
     pub_date = models.DateField(default=timezone.now)
+    expiry_date = models.DateField(default=timezone.now)
     quantity = models.PositiveBigIntegerField(default=1)
     image = models.ImageField(null=True,blank=TRUE, upload_to='medicines/images', default="")
 
@@ -96,6 +93,7 @@ class ShippingAddress(models.Model):
     address = models.CharField(max_length=100, null=True )
     city = models.CharField(max_length=100, null=True )
     province = models.CharField(choices=Province, default='Province',max_length=20 )
+    zip_code = models.CharField(max_length=50, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
