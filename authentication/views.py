@@ -12,6 +12,7 @@ from django.shortcuts import render,redirect
 from django.core.mail import send_mail
 
 
+
 #Create your views here.
 
 def creatingOTP():
@@ -69,7 +70,7 @@ def SignUp_function(request):
                      otp = sendEmail(email,first_name,last_name)
                      dt = PreRegistration(first_name=form.cleaned_data['first_name'],last_name=form.cleaned_data['last_name'],username= form.cleaned_data['username'],email=email,otp=otp,password1 = form.cleaned_data['password1'],password2 = form.cleaned_data['password2'])
                      dt.save()
-                     messages.success(request, 'Account is created Successfully!')
+                    #  messages.success(request, 'Account is created Successfully!')
                      return HttpResponseRedirect('/verify/')
 
         else:
@@ -78,38 +79,6 @@ def SignUp_function(request):
     else:
         return HttpResponseRedirect('/')
 
-
-
-
-
-    # if request.method == 'POST':
-    #     first_name = request.POST['first_name']
-    #     last_name = request.POST['last_name']
-    #     username = request.POST['username']
-    #     password1 = request.POST['password1']
-    #     password2 = request.POST['password2']
-    #     email = request.POST['email']
-
-    #     if password1==password2:
-    #         if User.objects.filter(username=username).exists():
-    #             messages.info(request,'Username Taken')
-    #             return redirect('reg')
-    #         elif User.objects.filter(email=email).exists():
-    #             messages.info(request,'Email Taken')
-    #             return redirect('reg')
-    #         else:   
-    #             user = User.objects.create_user(username=username, password=password1, email=email,first_name=first_name,last_name=last_name)
-    #             user.save();
-    #             print('user created')
-    #             return redirect('login')
-
-    #     else:
-    #         messages.info(request,'password not matching..')    
-    #         return redirect('reg')
-    #         return redirect('/')
-        
-    # else:
-    #     return render(request,'register.html')
 
 
 
@@ -131,21 +100,7 @@ def Login_function(request):
 
 
     
-    # if not request.user.is_authenticated:
-    #     if request.method == 'POST':
-    #         form = LoginForm(request = request,data = request.POST)
-    #         if form.is_valid():
-    #             username = form.cleaned_data['username']
-    #             pas = form.cleaned_data['password']
-    #             usr = authenticate(username= username,password=pas)
-    #             login(request,usr)
-    #             return HttpResponseRedirect('/')
-    #     else:
-    #         form = LoginForm()
-    #     return render(request,'login.html',{'form':form})
-    # else:
-    #     return HttpResponseRedirect('/login/')
-       
+   
 
 def verifyUser(request):
     if not request.user.is_authenticated:
