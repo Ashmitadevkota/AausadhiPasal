@@ -70,27 +70,46 @@
         <br>
         <div class="box-element">
             <div class="cart-row">
-                <div style="flex:2"></div>
-                <div style="flex:2"><strong>Item</strong></div>
+                <div style="flex:1"></div>
+                <div style="flex:1"><strong>Item</strong></div>
                 <div style="flex:1"><strong>Price</strong></div>
                 <div style="flex:1"><strong>Quantity</strong></div>
                 <div style="flex:1"><strong>Total</strong></div>
+                <div style="flex:1"><strong>Action</strong></div>
             </div>
             
             {% for item in items %}
             <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{item.product_name.imageURL}}"></div>
-                <div style="flex:2"><p>{{item.product_name.product_name}}</p></div>
+                <div style="flex:1"><img class="row-image" src="{{item.product_name.imageURL}}"></div>
+                <div style="flex:1"><p>{{item.product_name.product_name}}</p></div>
                 <div style="flex:1"><p>Rs.{{item.product_name.price|floatformat:2}}</p></div>
                 <div style="flex:1">
+                    
                     <p class="quantity">{{item.quantity}}</p>
                     <div class="quantity">
-                        <img class="chg-quantity" src="{% static  'images/arrow-up.png' %}">
+                        <img data-product="{{item.product_name.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
                 
-                        <img class="chg-quantity" src="{% static  'images/arrow-down.png' %}">
+                        <img data-product="{{item.product_name.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
                     </div>
                 </div>
                 <div style="flex:1"><p>Rs. {{item.get_total}}</p></div>
+                <div style="flex:1">
+                    <form
+                    action="{% url 'remove_cart' item.product_name.id  %}"
+                    method="POST"
+                    class="d-inline"
+                  >
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                  </form>
+                    
+                    
+                    
+                    
+                    <!-- <a href="{% url 'remove_item/' %">
+                    
+                    <h5><i class="fa fa-trash" aria-hidden="true"></i></h5></a> -->
+                </div>
             </div>
             {% endfor %}
 
@@ -107,7 +126,50 @@
 
 
 </div>
-
+<script>
+    var updateBtns = document.getElementsByClassName('update-cart')
+  
+  for( i = 0; i < updateBtns.length; i++){
+      updateBtns[i].addEventListener('click', function(){
+          var productId = this.dataset.product
+          var action = this.dataset.action
+          console.log('productId:',productId,'Action:',action)
+  
+          console.log('USER:',user)
+          if(user == 'AnonymousUser'){
+            console.log('Not logged in')
+            
+          }
+          else{
+            updateUSerOrder(productId,action)
+          }
+          
+      })
+  }
+  function updateUSerOrder(productId,action){
+    console.log('User is logged in, Sending data ...')
+  
+    var url = '/update_item/'
+    
+    fetch(url, {
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+  
+      },
+      body:JSON.stringify({'productId': productId, 'action':action})
+    })
+    .then((response) =>{
+      return response.json()
+    })
+    .then((data) =>{
+      console.log('data:', data)
+      location.reload()
+    })
+  
+  }
+  </script>
 
 
  {% include 'components/footer/footer.html' %}
