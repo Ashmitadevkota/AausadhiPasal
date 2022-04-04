@@ -18,7 +18,9 @@
   .navbar-nav{
  
     display: inline-block;
+    
   }
+
 
   
 }
@@ -41,18 +43,18 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                           
-                            <div class="navbar-nav">
+                            <div class="navbar-nav" >
                             </div>
-                            <form class="d-flex">
+                            <form action="{% url 'search' %}" method="get" class="d-flex">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <button type="button" class="btn btn-secondary"><i class="bi-search"></i></button>
+                                    <input type="text" class="form-control" name="query"  placeholder="Search" style="height: fit-content;">
+                                    <button type="submit" class="btn btn-secondary"><i class="fa fa-search"></i></button>
                                 </div>
                             </form>
 
 
               
-              <div class="navbar-nav">
+              <div class="navbar-nav"style="border-top: none">
               <span class="badge bg-c-red" style="height: 20px;" id="cart-total">{{cartItems}}</span
                 > <a href="{% url 'cart' %}"><i class="fa fa-cart-plus" style="color: aliceblue;font-size: 30px;margin-right: 50px; margin-top: 12px;"> </i></a>
                 <div class="w3l_header_right1">
@@ -110,14 +112,14 @@
                             
                               <div class="navbar-nav">
                               </div>
-                              <form class="d-flex">
+                              <form action="{% url 'search' %}" method="get"  class="d-flex">
                                   <div class="input-group">
-                                      <input type="text" class="form-control" placeholder="Search">
-                                      <button type="button" class="btn btn-secondary"><i class="bi-search"></i></button>
+                                      <input type="text" class="form-control" placeholder="Search" style="height: fit-content;">
+                                      <button type="button" name="query"  class="btn btn-secondary"><i class="fa fa-search" ></i></button>
                                   </div>
                               </form>
   
-                <div class="navbar-nav">
+                <div class="navbar-nav" style="border-top: none">
                   <a href="{% url 'login' %}" class="nav-item nav-link" style="margin-right: 50px;font-size: larger;color: aliceblue
                   ;"><i class="fa fa-user"><span>Login</span></i></a> 
                   <a href="{% url 'reg' %}" class="nav-item nav-link" style="margin-right: 80px;font-size: larger; color: aliceblue;"><i class="fa fa-user"><span>Register</span></i></a>

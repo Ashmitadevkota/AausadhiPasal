@@ -11,6 +11,7 @@ urlpatterns = [
     path('update_item/',views.updateItem,name="update_item"),
     path('remove_cart/<int:id>/',views.remove_from_cart,name="remove_cart"),
     path('process_order/',views.ProcessOrder,name='process_order'),
+    path('search/', views.searchBar, name = 'search'),
 
     
 ]

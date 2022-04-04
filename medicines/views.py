@@ -153,3 +153,19 @@ def ProcessOrder(request):
 
 
     return JsonResponse('payment submited',safe=False)
+
+@login_required(login_url='login')
+def searchBar(request):
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        if request.method == 'GET':
+            query = request.GET.get('query')
+        if query:
+            products = Product.objects.filter(product_name__icontains=query) 
+            return render(request, 'searchbar.html', {'products':products,'items': items, 'order':order, 'cartItems':cartItems})
+        else:
+            items = []
+            print("No information to show")
+        return render(request, 'searchbar.html', {})
