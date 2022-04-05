@@ -12,6 +12,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from jinja2 import ModuleLoader
 from numpy import maximum
+from zmq import DEALER
 
 
 # Create your models here.
@@ -91,6 +92,7 @@ class Order(models.Model):
         return total
 
 class OrderItem(models.Model):
+    
     product_name = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     quantity = models.IntegerField(default=0,null=True,blank=True)
@@ -115,6 +117,10 @@ class ShippingAddress(models.Model):
         return self.user
 
 
+class Wishlist(models.Model):
+    user = models.CharField(max_length=20,null=True, blank=False)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
 
 
