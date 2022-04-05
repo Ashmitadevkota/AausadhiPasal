@@ -1,0 +1,152 @@
+{% load static %}
+
+{% include 'components/base/base-top.html' %}
+{% include 'components/header/header.html' %}
+
+<style>
+
+.box-element{
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.cart-row{
+    display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+}
+
+.quantity{
+    display: inline-block;
+    font-weight: 700;
+    padding-right: 10px;
+}
+
+.row-image{
+    width: 200px;
+    height: 80px;
+}
+
+.chg-quantity{
+    width: 12px;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 3px;
+}
+.btn:hover {
+    background-color: white;
+    color: black;
+
+}
+
+
+
+</style>
+
+
+<div class="container">
+<div class="row wishdata ">
+    <div class="col-lg-12">
+        <div class="box-element">
+            <a class="btn btn-dark" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+            <br>
+            <br>
+
+
+        </div>
+
+        <br>
+        <div class="box-element ">
+            <div class="cart-row">
+                <div style="flex:2"></div>
+                <div style="flex:1"><strong>Item</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+                <div style="flex:2"><strong>Action</strong></div>
+            </div>
+            
+            {% for item in wishlist %}
+            <div class="cart-row product_data">
+                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+                <div style="flex:1"><p>{{item.product.product_name}}</p></div>
+                
+                <div style="flex:1"><p>Rs.{{item.product.price|floatformat:2}}</p></div>
+             
+                <div style="flex:2">
+                    
+                    <a href="{% url 'product' item.product.id %}"><button class="btn btn-success "><i class="fa fa-eye">Details</i></button></a>
+                        <!-- <input type="hidden" class="prod_id" value="{{item.product.id}}">  -->
+                   
+
+                    <form
+                    action="{% url 'remove_wishlist' item.product.id  %}"
+                    method="POST"
+                    class="d-inline"
+                  >
+                    {% csrf_token %}
+                    <button class="btn btn-danger"><i class="fa fa-trash"></i>
+                    Delete</button>
+                  </form>
+
+                  <!-- <button class=" prod_id btn btn-danger delete-wishlist-item" value="{{item.product.id}}"><i class="fa fa-trash"> Delete</i> </button>  -->
+                
+                </div>
+              
+                    
+                    
+                    
+                    
+              
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+<br>
+
+
+
+</div>
+
+<script>
+$(document).on('click','.delete-wishlist-item',function(e){
+    e.preventDefault();
+
+    var product_id = $(this).closest('.product_data').find('.prod_id').val();
+    var token = csrftoken
+
+      $.ajax({
+          type:"POST",
+          url:"/delete-wishlist-item",
+          data:{
+              'product_id':product_id,
+              csrfmiddlewaretoken : token
+
+          },
+          success : function(response){
+              alertify.success(response.status)
+              $('.wishdata').load(location.href + " .wishdata");
+          }
+      })
+
+});
+
+    
+</script>
+
+ {% include 'components/footer/footer.html' %}
+
+ {% include 'components/base/base-bottom.html' %}
+
+
+
+

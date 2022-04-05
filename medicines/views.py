@@ -2,7 +2,7 @@ from audioop import reverse
 from email import message
 from itertools import product
 from multiprocessing import context
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from matplotlib.pyplot import get
 from matplotlib.style import available
 from numpy import save
@@ -12,6 +12,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import json
 from plyer import notification
 import datetime
+
+
 
 # Create your views here.
 
@@ -124,9 +126,16 @@ def updateItem(request):
 
 def remove_from_cart(request, id):
     if request.method == 'POST':
+        
         delb = OrderItem.objects.get(product_name_id=id)
         delb.delete()
         return HttpResponseRedirect('/cart')
+
+def remove_from_wishlist(request, id):
+    if request.method == 'POST':
+        delb = Wishlist.objects.get(user = request.user.username, product_id=id)
+        delb.delete()
+        return HttpResponseRedirect('/wishlist')
  
 def ProcessOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
@@ -153,3 +162,66 @@ def ProcessOrder(request):
 
 
     return JsonResponse('payment submited',safe=False)
+
+@login_required(login_url='login')
+def searchBar(request):
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        if request.method == 'GET':
+            query = request.GET.get('query')
+        if query:
+            products = Product.objects.filter(product_name__icontains=query) 
+            return render(request, 'searchbar.html', {'products':products,'items': items, 'order':order, 'cartItems':cartItems})
+        else:
+            items = []
+            print("No information to show")
+        return render(request, 'searchbar.html', {})
+
+
+def wishlist(request):
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items    
+        wishlist= Wishlist.objects.filter(user=request.user)
+
+    return render(request,'wishlist.html',{'wishlist':wishlist,'items': items, 'order':order, 'cartItems':cartItems})
+
+def addtowishlist(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            prod_id = int(request.POST.get('product_id'))
+            
+            product_check = Product.objects.get(id=prod_id)
+            if(product_check):
+                if(Wishlist.objects.filter(user=request.user, product_id= prod_id)):
+                    return JsonResponse({'status':"Product already in wishlist"})
+                else:
+                    Wishlist.objects.create(user=request.user,product_id = prod_id)
+                    return JsonResponse({'status':"product added to wishlist"})
+
+            else:
+                return JsonResponse({'status':"No such product found"})
+
+        
+        else:
+            return JsonResponse({'status':"login to contibue"})
+    return redirect('/')
+
+# def deletewishlistitem(request):
+#     if request.method == "POST":
+#         if request.user.is_authenticated:
+#             prod_id = int(request.POST.get('product_id'))
+#             if(Wishlist.objects.filter(user=request.user, product_id= prod_id)):
+#                 wishlistitem = Wishlist.objects.get(product_id = prod_id)
+#                 wishlistitem.delete()
+#                 return JsonResponse({'status':"Product removed from wishlist"})
+#             else:
+#                 return JsonResponse({'status':"Product not found in wishlist"})
+
+        
+#         else:
+#             return JsonResponse({'status':"login to contibue"})
+#     return redirect('/')
