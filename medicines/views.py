@@ -261,3 +261,12 @@ def addtowishlist(request):
 #         else:
 #             return JsonResponse({'status':"login to contibue"})
 #     return redirect('/')
+
+
+def profile(request):
+    order = Order.objects.get_or_create(user=request.user.username,complete= True)
+    return render(request,'profile.html',{'order':order})
+
+def about(request):
+    
+    return render(request,'about.html')

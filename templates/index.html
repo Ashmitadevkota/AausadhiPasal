@@ -92,7 +92,7 @@
 }
 
 
-.read-more {
+/* .read-more {
   max-width: 212px;
   margin: 0 auto;
   margin-top: 0px;
@@ -136,7 +136,86 @@
  .btn-default:active .filter-button:active {
      background-color: #0e5dae;
      color: white
- }
+ } */
+ .w3l_fresh_vegetables_grid_right{
+	padding:0;
+    margin-left: 13%;
+}
+
+
+.w3l_fresh_vegetables_grids{
+	margin:3em 0 0;
+	padding:1em 0em 1em 1em;
+	background:#f5f5f5;
+}
+.w3l_fresh_vegetables_grid{
+	padding-left:0;
+}
+.w3l_fresh_vegetables_grid ul li{
+	list-style-type:none;
+	margin-bottom:1.5em;
+	color:#84C639;
+}
+.w3l_fresh_vegetables_grid ul li i{
+	padding-right:1em;
+}
+.w3l_fresh_vegetables_grid ul li a{
+	font-size:14px;
+	text-transform:uppercase;
+	color:#212121;
+	text-decoration:none;
+}
+.w3l_fresh_vegetables_grid ul li a:hover{
+	color:#84C639;
+}
+.w3l_fresh_vegetables_grid2{
+	padding: 1em;
+	background:#fff;
+}
+.w3l_fresh_vegetables_grid1_rel{
+	position:relative;
+}
+.w3l_fresh_vegetables_grid1_rel_pos {
+    position: absolute;
+    top: 0;
+    right: 5%;
+}
+.w3l_fresh_vegetables_grid1_rel_pos {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+.m1 {
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+.w3l_fresh_vegetables_grid1_bottom {
+    margin: 1em 0 0;
+	position:relative;
+}
+.w3l_fresh_vegetables_grid1_bottom_pos{
+	position:absolute;
+	bottom:5%;
+	left:10%;
+}
+.w3l_fresh_vegetables_grid1_bottom_pos h5{
+	font-size: 1.3em;
+    color: #fff;
+    font-weight: 600;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    background: #FA1818;
+    border-radius: 50%;
+    padding: 1.1em 0 0;
+    line-height: 1.3em;
+}
+
+.w3l_fresh_vegetables_grid1_bottom_pos h5 {
+		font-size: 1.1em;
+		width: 85px;
+		height: 85px;
+	}
 
 </style>
 
@@ -213,113 +292,53 @@
 	</div>
 
 </div>
-        <!-- <div align="center"> <a href="#personal"><button class="btn btn-default filter-button" >Personal Care</button></a>
-            <a href="#sanitary"><button class="btn btn-default filter-button" >Sanitary</button></a>
-            <a href="#babycare"><button class="btn btn-default filter-button" >Baby Care</button> </a>
-            <a href="#medicines"> <button class="btn btn-default filter-button" >Medicines</button> </a>
-   
-             </div> -->
 
-    <!--products-->
-
- <div class="container">
-    <div class="row">
-        <header class=" text-center py-2 mb-4 new" style="
-            background-color: #84C639">
-            <div class="container">
-                <h1 class="font-weight-light text-white" id="personal">Personal Care</h1>
-            </div>
-        </header>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="cardd"> <span class="percent">-10%</span>
-                <div class="card-image"> <img src="https://i.imgur.com/jqfPp3X.png" width="250"> </div>
-                <div class="card-inner"> <span>Groceries</span>
-                    <h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
-                    <div class="price"><sup><s><strong>Rs.20.99</strong></s></sup> <span> Rs 2000</span>  </div>
-                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;"> <button class="btn btn-success text-uppercase btn-sm details">Details</button>
-                        <div class="d-flex flex-row" style="margin-left: 50%;" > <span class="wishlist"><i class="fa fa-heart"></i></span>  </div>
+<div class="container">
+<div class="col-md-9 w3l_fresh_vegetables_grid_right">
+    <div class="col-md-4 w3l_fresh_vegetables_grid">
+        <div class="w3l_fresh_vegetables_grid1">
+            <img src="static/images/lilartsy-ZsNO9MhKXPU-unsplash.jpg" alt=" " class="img-responsive" />
+        </div>
+    </div>
+    <div class="col-md-4 w3l_fresh_vegetables_grid">
+        <div class="w3l_fresh_vegetables_grid1">
+            <div class="w3l_fresh_vegetables_grid1_rel"> 
+                <img src="static/images/pawel-czerwinski-kxblPqfYc9E-unsplash.jpg" alt=" " class="img-responsive" />
+                <div class="w3l_fresh_vegetables_grid1_rel_pos">
+                    <div class="more m1">
+                        {% if request.user.is_authenticated %}
+                        <a href="store/" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                        {% else %}
+                        <a href="login/" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="cardd"> <span class="percent">-10%</span>
-                <div class="card-image"> <img src="https://i.imgur.com/jqfPp3X.png" width="250"> </div>
-                <div class="card-inner"> <span>Groceries</span>
-                    <h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
-                    <div class="price"><sup><s><strong>Rs.20.99</strong></s></sup> <span> Rs 2000</span>  </div>                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;"> <button class="btn btn-success text-uppercase btn-sm details">Details</button>
-                        <div class="d-flex flex-row" style="margin-left: 50%;"  > <span class="wishlist"><i class="fa fa-heart"></i></span>  </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="cardd"> <span class="percent">-10%</span>
-                <div class="card-image"> <img src="https://i.imgur.com/jqfPp3X.png" width="250"> </div>
-                <div class="card-inner"> <span>Groceries</span>
-                    <h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
-                    <div class="price"><sup><s><strong>Rs.20.99</strong></s></sup> <span> Rs 2000</span>  </div>                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;" > <button class="btn btn-success text-uppercase btn-sm details">Details</button>
-                        <div class="d-flex flex-row" style="margin-left: 50%;" > <span class="wishlist"><i class="fa fa-heart"></i></span>  </div>
-                    </div>
-                </div>
+        <div class="w3l_fresh_vegetables_grid1_bottom"> 
+            <img src="static/images/conscious-design-cUOt0NiIrv0-unsplash.jpg" alt=" " class="img-responsive" />
+            <div class="w3l_fresh_vegetables_grid1_bottom_pos">
+                <h5>Special Offers</h5>
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <a href="{% url 'store' %}" class="read-more">See More</a>
+    <div class="col-md-4 w3l_fresh_vegetables_grid">
+        <div class="w3l_fresh_vegetables_grid1">
+            <img src="static/images/madison-agardi-QNrjcp90tVc-unsplash.jpg" alt=" " class="img-responsive" />
+        </div>
+        <div class="w3l_fresh_vegetables_grid1_bottom">
+            <img src="static/images/raimond-klavins-n-7HTOiJPso-unsplash.jpg" alt=" " class="img-responsive" />
+        </div>
     </div>
+    <div class="clearfix"> </div>
 
-    <div class="row">
-        <header class=" text-center py-2 mb-4 new" style="
-        background-color: #84C639">
-        <div class="container">
-            <h1 class="font-weight-light text-white" id="sanitary">Sanitary</h1>
-        </div>
-    </header>
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="cardd"> <span class="percent">-10%</span>
-                <div class="card-image"> <img src="https://i.imgur.com/jqfPp3X.png" width="250"> </div>
-                <div class="card-inner"> <span>Groceries</span>
-                    <h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
-                    <div class="price"><sup><s><strong>Rs.20.99</strong></s></sup> <span> Rs 2000</span>  </div>
-                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;"> <button class="btn btn-success text-uppercase btn-sm details">Details</button>
-                        <div class="d-flex flex-row" style="margin-left: 50%;" > <span class="wishlist"><i class="fa fa-heart"></i></span>  </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="cardd"> <span class="percent">-10%</span>
-                <div class="card-image"> <img src="https://i.imgur.com/jqfPp3X.png" width="250"> </div>
-                <div class="card-inner"> <span>Groceries</span>
-                    <h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
-                    <div class="price"><sup><s><strong>Rs.20.99</strong></s></sup> <span> Rs 2000</span>  </div>                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;"> <button class="btn btn-success text-uppercase btn-sm details">Details</button>
-                        <div class="d-flex flex-row" style="margin-left: 50%;"  > <span class="wishlist"><i class="fa fa-heart"></i></span>  </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="cardd"> <span class="percent">-10%</span>
-                <div class="card-image"> <img src="https://i.imgur.com/jqfPp3X.png" width="250"> </div>
-                <div class="card-inner"> <span>Groceries</span>
-                    <h5 class="mb-0">Dr. Oetkar Oats -500g</h5>
-                    <div class="price"><sup><s><strong>Rs.20.99</strong></s></sup> <span> Rs 2000</span>  </div>                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;" > <button class="btn btn-success text-uppercase btn-sm details">Details</button>
-                        <div class="d-flex flex-row" style="margin-left: 50%;" > <span class="wishlist"><i class="fa fa-heart"></i></span>  </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-md-12">
-        <a class="read-more">See More</a>
-    </div>
 </div>
+
+
+</div>
+<br> 
+  
+
 
 
 

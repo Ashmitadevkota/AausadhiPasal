@@ -1,0 +1,107 @@
+{% load static %}
+
+{% include 'components/base/base-top.html' %}
+{% include 'components/header/header.html' %}
+
+<style>
+
+.box-element{
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.cart-row{
+    display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+}
+
+.quantity{
+    display: inline-block;
+    font-weight: 700;
+    padding-right: 10px;
+}
+
+.row-image{
+    width: 200px;
+    height: 80px;
+}
+
+.chg-quantity{
+    width: 12px;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 3px;
+}
+.btn:hover {
+    background-color: white;
+    color: black;
+
+}
+
+
+
+</style>
+
+
+<div class="container">
+<div class="row wishdata ">
+    <div class="col-lg-12">
+        <div class="box-element">
+            <h2 class="" style="text-align: center;">ORDER  HISTORY</h2>
+            <br>
+            <br>
+
+
+        </div>
+
+        <br>
+        <div class="box-element ">
+            <div class="cart-row">
+                <div style="flex:2"></div>
+                <div style="flex:1"><strong>Item</strong></div>
+                <div style="flex:1"><strong>Quantity</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+
+            </div>
+            
+            {% for order in order %}
+            {% if order.complete == True %}
+            <div class="cart-row product_data">
+                <div style="flex:2"><img class="row-image" src="{{order.product.imageURL}}"></div>
+                <div style="flex:1"><p>{{order.product}}</p></div>
+                <div style="flex:1"><p>{{cp.quantity}}</p></div>
+                <div style="flex:1"><p>Rs.{{cp.product.price|floatformat:2}}</p></div>
+                  
+              
+            </div>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+<br>
+
+
+
+</div>
+
+
+
+ {% include 'components/footer/footer.html' %}
+
+ {% include 'components/base/base-bottom.html' %}
+
+
+
+
