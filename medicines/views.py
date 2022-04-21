@@ -6,13 +6,14 @@ from django.shortcuts import redirect, render
 from matplotlib.pyplot import get
 from matplotlib.style import available
 from numpy import save
+import requests
 from sklearn.preprocessing import OrdinalEncoder
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import json
 from plyer import notification
 import datetime
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -157,11 +158,46 @@ def ProcessOrder(request):
                 city = data['shipping']['city'],
                 ward_no = data['shipping']['ward_no'],
                 zip_code = data['shipping']['zip_code'],
+                pres = data['shipping']['pres'],
+                phone = data['shipping']['phone'],
 
             )
 
 
     return JsonResponse('payment submited',safe=False)
+
+
+
+@csrf_exempt
+def khalti(request):
+   data = request.POST
+   product_id = data['product_identity']
+   token = data['token']
+   amount = data['amount']
+
+   url = "https://khalti.com/api/v2/payment/verify/"
+   payload = {
+   "token": token,
+   "amount": amount
+   }
+   headers = {
+   "Authorization": "test_public_key_dc74e0fd57cb46cd93832aee0a390234"
+   }
+   
+   response = requests.post(url, payload, headers = headers)
+   
+   response_data = json.loads(response.text)
+   status_code = str(response.status_code)
+
+   if status_code == '400':
+      response = JsonResponse({'status':'false','message':response_data['detail']}, status=500)
+      return response
+
+   import pprint 
+   pp = pprint.PrettyPrinter(indent=4)
+   pp.pprint(response_data)
+   
+   return JsonResponse(f"Payment Success !! . {response_data['user']['idx']}",safe=False)
 
 @login_required(login_url='login')
 def searchBar(request):

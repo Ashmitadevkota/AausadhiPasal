@@ -19,15 +19,22 @@ from zmq import DEALER
 
 
 
-# Province=(
-#     ('Province 1', 'Province 1'),
-#     ('Province 2', 'Province 2'),
-#     ('Province 3', 'Province 3'),
-#     ('Province 4', 'Province 4'),
-#     ('Province 5', 'Province 5'),
-#     ('Province 6', 'Province 6'),
-#     ('Province 7', 'Province 7'),
-# )
+Province=(
+    ('Province 1', 'Province 1'),
+    ('Province 2', 'Province 2'),
+    ('Province 3', 'Province 3'),
+    ('Province 4', 'Province 4'),
+    ('Province 5', 'Province 5'),
+    ('Province 6', 'Province 6'),
+    ('Province 7', 'Province 7'),
+)
+
+City=(
+    ('Kathmandu','Kathmandu'),
+    ('Bhaktapur','Bhaktapur'),
+    ('Lalitpur','Lalitpur'),
+    
+)
 
 # class Customer(models.Model):
 #     # user = models.OneToOneField(User,on_delete=models.CASCADE,null=True, blank=True)
@@ -110,11 +117,22 @@ class ShippingAddress(models.Model):
     address = models.CharField(max_length=100, null=True )
     city = models.CharField(max_length=100, null=True )
     ward_no = models.IntegerField(null=True)
-    zip_code = models.CharField(max_length=50, null=True)
+    zip_code = models.IntegerField(max_length=50, null=True)
+    phone = models.IntegerField(max_length=10,blank=True,null=True)
+    pres = models.ImageField(null=True,blank=True, upload_to='medicines/prescription', default="")
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user
+        
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url=''
+        return url
+        
 
 
 class Wishlist(models.Model):
@@ -123,5 +141,8 @@ class Wishlist(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 
+# class Prescription(models.Model):
+#     user = models.CharField(max_length=20,null=True, blank=False)
+#     pres = models.ImageField(null=True,blank=False, upload_to='medicines/prescription', default="")
 
 
