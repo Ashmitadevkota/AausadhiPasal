@@ -16,6 +16,8 @@ urlpatterns = [
     path('search/', views.searchBar, name = 'search'),
     path('wishlist',views.wishlist, name="wishlist"),
     path('add-to-wishlist',views.addtowishlist, name = "addtowishlist"),
-    path('api/khalti_payment',views.khalti,name='verify_payment')
+    path('api/khalti_payment',views.khalti,name='verify_payment'),
+    path('profile/',views.profile,name="profile"),
+    path('about/',views.about,name="about"),
     
 ]

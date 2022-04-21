@@ -1,0 +1,100 @@
+
+{% load static %}
+{% include 'components/base/base-top.html' %}
+{% include 'components/header/header.html' %}
+
+
+<style>
+
+
+/* about*/
+
+.about {
+  /* min-height: 100vh; */
+  padding-bottom: 0rem;
+}
+
+.about .image {
+  padding: 2rem;
+}
+
+.about .image img {
+  height: 30rem;
+  object-fit: cover;
+  box-shadow: 2.5rem 2.5rem 0 1rem rgba(157, 154, 154, 0.571);
+}
+
+.about .info {
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.about .info h2 {
+  color: #544c4ccd;
+  font-size: 2.5rem;
+}
+
+.about .info p {
+  font-size: 1rem;
+  color: #444;
+  margin: 2rem 0;
+}
+
+.about .info .icons a {
+  font-size: 2rem;
+  height: 4rem;
+  width: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  background: #333;
+  color: #fff;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+  text-decoration: none;
+}
+
+.about .info .icons a:hover {
+  background: #b83030cd;
+}
+
+
+
+/*about ends */
+
+</style>
+
+
+<div class="container">
+    <!-- about section starts  -->
+
+    <section class="about container" style="margin-bottom: 100px;" >
+      <div class="row align-items-center">
+        <div class="col-md-6 image">
+          <img src="/static/images/pharmacy.jpg" width="90%" alt="image" />
+        </div>
+
+        <div class="col-md-6 info">
+          <h2 class="aces">The Best Pharmacy</h2>
+          <p class="aces">
+              We are your ideal healthcare partner. In todays world, where there is so much to achieve, so much to learn and so much to gain, we often forget about one of the most crucial thing that either makes us or breaks us.
+              The main vision of Ausadhipasal is to fulfill all healthcare needs that is easily accessible. The mission of Ausadhipasal is to be no 1 digital health partner in Nepal.
+
+          </p>
+          <p class="aces">
+              We began our journey from the thought of providing a better and accessible healthcare service for Kathmandu. Here at Ausadhipasal, you can easily order medicines, healthcare products, book for various diagnostic tests and create your own health packages, all with reasonable prices. We do quick delivery. Ausadhipasal is convenient and trust worthy.
+
+
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- about section ends -->
+  </div>
+
+  
+ 
+
+
+{% include 'components/footer/footer.html' %}
+{% include 'components/base/base-bottom.html' %}
