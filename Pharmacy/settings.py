@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'authentication',
     'medicines',
 
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     # 'django.contrib.sites',
     # 'allauth',
     # 'allauth.account',
@@ -119,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -160,14 +167,16 @@ EMAIL_HOST_USER = 'devkota9803@gmail.com'
 EMAIL_HOST_PASSWORD = 'torrukoexkngptuh'
 
 
-# SITE_ID = 1
 
-# AUTHENTICATION_BACKENDS = (
-#     # Needed to login by username in Django admin, regardless of `allauth`
-#     'django.contrib.auth.backends.ModelBackend',
 
-#     # `allauth` specific authentication methods, such as login by e-mail
-#     'allauth.account.auth_backends.AuthenticationBackend',
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
-# )
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+SITE_ID = 0
+LOGIN_REDIRECT_URL = '/'
 

@@ -2,7 +2,10 @@
 
 {% include 'components/base/base-top.html' %}
  {% include 'components/header/header.html' %}
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+<script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
  <style>
 
@@ -63,15 +66,7 @@
     <div class="col-lg-6">
         <div class="box-element" id="form-wrapper">
             <form id="form" method="post">
-                <!-- <div id="user-info">
-                    <div class="form-field">
-                        <input required class="form-control" type="text" name="name" placeholder="Name..">
-                    </div>
-                    <div class="form-field">
-                        <input required class="form-control" type="email" name="email" placeholder="Email..">
-                    </div>
-                </div> -->
-                
+                {% csrf_token %}
                 <div id="shipping-info">
                     <hr>
                     <p>Shipping Information:</p>
@@ -84,10 +79,16 @@
                     </div>
                     <div class="form-field">
                         
-                        <input class="form-control" type="text" name="ward_no" placeholder="Ward no.."> 
+                        <input class="form-control" type="number" name="ward_no" placeholder="Ward no.."> 
                     </div>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+                        <input class="form-control" type="number" name="zipcode" placeholder="Zip code..">
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="number" name="phone" placeholder="Phone no">
+                    </div>
+                    <div class="form-field">
+                        <p>Upload Prescription</p><input class="form-control" type="file" id="myFile" name="filename">
                     </div>
                 </div>
 
@@ -98,8 +99,9 @@
 
         <br>
         <div class="box-element hidden" id="payment-info">
-            <small>Paypal Options</small>
-            <button id = "make-payment">Make payment</button>
+            <h4>Payment Options</h4>
+            <button id = "make-payment" class="btn btn-outline-success">Cash On Delivery</button>
+            <button id="payment-button" class="btn btn-outline-success">Pay with Khalti</button> 
         </div>
         
     </div>
@@ -125,9 +127,59 @@
 </div>
 
 </div>
+<br>
 
 
 <script>
+
+        
+function verifyPayment(payload) {
+        $.ajax({
+            url: "{% url 'verify_payment' %}",
+            type: "POST",
+            data: payload,
+            dataType: 'json',
+            success: function (response) { alert(response) },
+            error: function (error) { alert(error.responseJSON['message']) }
+        });
+    }
+
+    var config = {
+            // replace the publicKey with yours
+            "publicKey": "test_public_key_dc74e0fd57cb46cd93832aee0a390234",
+            "productIdentity": "1234567890",
+            "productName": "Dragon",
+            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "paymentPreference": [
+                "KHALTI",
+                "EBANKING",
+                "MOBILE_BANKING",
+                "CONNECT_IPS",
+                "SCT",
+                ],
+            "eventHandler": {
+                onSuccess (payload) {
+                    // hit merchant api for initiating verfication
+                    console.log(payload);
+                },
+                onError (error) {
+                    console.log(error);
+                },
+                onClose () {
+                    console.log('widget is closing');
+                }
+            }
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var amount = '{{order.get_cart_total}}'*100;
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function () {
+            // minimum transaction amount must be 10, i.e 1000 in paisa.
+            checkout.show({amount:amount});
+        }
+
+
     var shipping = '{{Order.shipping}}'
     var total = '{{order.get_cart_total}}'
     var form = document.getElementById('form')
@@ -154,6 +206,8 @@
             'city' :null,
             'ward_no': null,
             'zip_code' :null,
+            'pres' :null,
+            'phone':null            
         }
 
         if(shipping != 'False'){
@@ -161,7 +215,8 @@
             shippingInfo.city = form.city.value
             shippingInfo.ward_no = form.ward_no.value
             shippingInfo.zip_code = form.zipcode.value
-
+            shippingInfo.pres = form.filename.value
+            shippingInfo.phone=form.phone.value
         }
 
         var url = "/process_order/"
