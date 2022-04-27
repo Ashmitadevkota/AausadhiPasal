@@ -116,10 +116,14 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
+    City=(
+    ('Kathmandu','Kathmandu'),
+    ('Bhaktapur','Bhaktapur'),
+    ('Lalitpur','Lalitpur'),)
     user = models.CharField(max_length=20,null=True, blank=False)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=100, null=True )
-    city = models.CharField(max_length=100, null=True )
+    city = models.CharField(max_length=100,choices=City, null=True )
     ward_no = models.IntegerField(null=True)
     zip_code = models.IntegerField(max_length=50, null=True)
     phone = models.IntegerField(max_length=10,blank=True,null=True)
