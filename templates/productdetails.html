@@ -26,7 +26,14 @@
         <p>Brand: {{data.brand}}</p>
         <p>Composition : {{data.composition}}</p>
         <p>Expiry Date: {{data.expiry_date}}</p>
-        <p>Available Stock : <button class="bg-light">{{data.quantity}} </button></p>
+
+        <p>Available Stock : <button class="bg-light">
+          {% if data.quantity == 0 %}
+         out of stock
+          {% else %}
+          {{data.quantity}} 
+          {% endif %}
+        </button></p>
         <p>Price : Rs {{data.price}}</p>
         
 

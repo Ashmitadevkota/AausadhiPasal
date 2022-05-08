@@ -5,7 +5,7 @@ from multiprocessing import context
 from django.shortcuts import redirect, render
 from matplotlib.pyplot import get
 from matplotlib.style import available
-from numpy import save
+from numpy import prod, save
 import requests
 from sklearn.preprocessing import OrdinalEncoder
 from .models import *
@@ -114,13 +114,19 @@ def updateItem(request):
 
     if action =='add':
         orderItem.quantity = (orderItem.quantity + 1)
+        product_name.quantity = (product_name.quantity - 1)
+        product_name.save()
+    
 
     elif action == 'remove':
         orderItem.quantity = (orderItem.quantity -1)
+        product_name.quantity = (product_name.quantity + 1)
+        product_name.save()
     orderItem.save()
 
     if orderItem.quantity <=0:
         orderItem.delete()
+    
 
     return JsonResponse('Item was added',safe=False)
 

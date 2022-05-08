@@ -19,20 +19,17 @@ from zmq import DEALER
 
 
 
-Province=(
-    ('Province 1', 'Province 1'),
-    ('Province 2', 'Province 2'),
-    ('Province 3', 'Province 3'),
-    ('Province 4', 'Province 4'),
-    ('Province 5', 'Province 5'),
-    ('Province 6', 'Province 6'),
-    ('Province 7', 'Province 7'),
+ORDER_STATUS = (
+    ("Order Received", "Order Received"),
+    ("Order Processing", "Order Processing"),
+    ("On the way", "On the way"),
+    ("Order Completed", "Order Completed"),
+    ("Order Canceled", "Order Canceled"),
 )
 
-City=(
-    ('Kathmandu','Kathmandu'),
-    ('Bhaktapur','Bhaktapur'),
-    ('Lalitpur','Lalitpur'),
+METHOD = (
+    ("Cash On Delivery", "Cash On Delivery"),
+    ("Khalti Pay", "Khalti Pay"),
     
 )
 
@@ -72,7 +69,10 @@ class Order(models.Model):
     user = models.CharField(max_length=20,null=True, blank=False)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
+    payment_method = models.CharField(max_length=20, choices=METHOD, default="Cash On Delivery")
+    order_status = models.CharField(max_length=50, choices=ORDER_STATUS,default="Order Received")
     transaction_id = models.CharField(max_length=200, null=True)
+
 
     def __str__(self):
         return str(self.id)
@@ -116,13 +116,17 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
+    City=(
+    ('Kathmandu','Kathmandu'),
+    ('Bhaktapur','Bhaktapur'),
+    ('Lalitpur','Lalitpur'),)
     user = models.CharField(max_length=20,null=True, blank=False)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=100, null=True )
-    city = models.CharField(max_length=100, null=True )
+    city = models.CharField(max_length=100,choices=City, null=True )
     ward_no = models.IntegerField(null=True)
-    zip_code = models.IntegerField(max_length=50, null=True)
-    phone = models.IntegerField(max_length=10,blank=True,null=True)
+    zip_code = models.IntegerField(null=True)
+    phone = models.IntegerField(blank=True,null=True)
     pres = models.ImageField(null=True,blank=True, upload_to='medicines/prescription', default="")
     date_added = models.DateTimeField(auto_now_add=True)
 

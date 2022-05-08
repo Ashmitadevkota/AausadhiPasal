@@ -75,7 +75,13 @@
                         <input class="form-control" type="text" name="address" placeholder="Address.." required>
                     </div>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City.." required>
+                        <select class="form-control" name="city" id="cars" type="text">
+                            <option value="Kathmandu">Kathmandu</option>
+                            <option value="Bhaktapur">Bhaktapur</option>
+                            <option value="Lalitpur">Lalitpur</option>
+                            
+                          </select>
+                        <!-- <input class="form-control" type="text" name="city" placeholder="City.." required> -->
                     </div>
                     <div class="form-field">
                         
@@ -98,12 +104,13 @@
         </div>
 
         <br>
+
+
         <div class="box-element hidden" id="payment-info">
             <h4>Payment Options</h4>
-            <button id = "make-payment" class="btn btn-outline-success">Cash On Delivery</button>
-            <button id="payment-button" class="btn btn-outline-success">Pay with Khalti</button> 
-        </div>
-        
+            <button id = "make-payment" class="btn btn-outline-success"><option value="Cash on Delivery">Cash On Delivery</option></button>
+            <button id="payment-button" class="btn btn-outline-success"><option value="Khalti Pay">Khalti Pay</option</button> 
+        </div> 
     </div>
 
     <div class="col-lg-6">

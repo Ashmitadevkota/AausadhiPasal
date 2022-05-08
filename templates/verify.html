@@ -5,6 +5,12 @@
   integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
   crossorigin="anonymous"
 />
+<style>
+  .btn .a{
+    color: aliceblue;
+  }
+
+</style>
 
 {% block content %}
 
@@ -31,6 +37,15 @@
             >
               Validate
             </button>
+            
+            <button
+            class="btn btn-danger px-4 non" 
+          >
+          <a href="/">
+            Cancel
+          </a>
+          </button>
+        
           </div>
           <br />
           <div class="errors" style="font-size: 20px; color: red;">{{form.otp.errors}}</div>
