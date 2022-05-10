@@ -147,6 +147,8 @@ def remove_from_wishlist(request, id):
 def ProcessOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+    
+ 
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
         total = float(data['form']['total'])
@@ -155,6 +157,14 @@ def ProcessOrder(request):
         if total == order.get_cart_total:
             order.complete = True
         order.save()
+
+        # if total == order.get_cart_total:
+        #     completedOrder.objects.create(
+        #         user= request.user.username,
+        #         order = order,
+                
+                
+        #     )
 
         if order.shipping == False:
              ShippingAddress.objects.create(
@@ -249,7 +259,7 @@ def addtowishlist(request):
 
         
         else:
-            return JsonResponse({'status':"login to contibue"})
+            return JsonResponse({'status':"login to continue"})
     return redirect('/')
 
 # def deletewishlistitem(request):
@@ -270,9 +280,26 @@ def addtowishlist(request):
 
 
 def profile(request):
-    order = Order.objects.get_or_create(user=request.user.username,complete= True)
-    return render(request,'profile.html',{'order':order})
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+
+    else:
+        items = [] 
+    
+    return render(request,'profile.html',{'items':items,'cartItems':cartItems})
+
 
 def about(request):
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        return  render(request,'about.html',{'order':order,'items':items,'cartItems':cartItems})
+
+    else:
+        items = [] 
+
     
     return render(request,'about.html')

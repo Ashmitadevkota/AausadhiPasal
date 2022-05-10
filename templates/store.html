@@ -41,7 +41,7 @@
 <style>
 
 .card {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     width: 350px;
     
 }
@@ -51,7 +51,7 @@
 
 .card-image img{
     margin-top: 20px;
-    height: 200px;
+    height: 150px;
 }
 
 .card-inner {
@@ -121,8 +121,8 @@
         
         {% for product in products %}
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
-            <div class="card" style="height: 450px;"> 
-                <div class="card-image"> <a href="{% url 'product' product.id %}"><img src="{{product.imageURL}}" width="200" hieght="100"></a> </div>
+            <div class="card" style="height: 350px;"> 
+                <div class="card-image"> <a href="{% url 'product' product.id %}"><img src="{{product.imageURL}}" width="200" hieght="100px"></a> </div>
                 <div class="card-inner"> 
                     <h5 class="mb-0">{{product.product_name}}</h5>
                     <span>{{product.brand}}</span>

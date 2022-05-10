@@ -127,7 +127,7 @@ class ShippingAddress(models.Model):
     ward_no = models.IntegerField(null=True)
     zip_code = models.IntegerField(null=True)
     phone = models.IntegerField(blank=True,null=True)
-    pres = models.ImageField(null=True,blank=True, upload_to='medicines/prescription', default="")
+    pres = models.ImageField(null=True,blank=True,upload_to='medicines/images/', default="")
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -153,4 +153,8 @@ class Wishlist(models.Model):
 #     user = models.CharField(max_length=20,null=True, blank=False)
 #     pres = models.ImageField(null=True,blank=False, upload_to='medicines/prescription', default="")
 
+
+# class completedOrder(models.Model):
+#     user = models.CharField(max_length=20,null=True, blank=False)
+#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
 

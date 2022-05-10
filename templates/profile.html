@@ -3,98 +3,27 @@
 {% include 'components/base/base-top.html' %}
 {% include 'components/header/header.html' %}
 
-<style>
-
-.box-element{
-    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
-    background-color: #fff;
-    border-radius: 4px;
-    padding: 10px;
-}
-
-.cart-row{
-    display: flex;
-    align-items: flex-stretch;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ececec;
-}
-
-.quantity{
-    display: inline-block;
-    font-weight: 700;
-    padding-right: 10px;
-}
-
-.row-image{
-    width: 200px;
-    height: 80px;
-}
-
-.chg-quantity{
-    width: 12px;
-    cursor: pointer;
-    display: block;
-    margin-bottom: 3px;
-}
-.btn:hover {
-    background-color: white;
-    color: black;
-
-}
 
 
+<div class="container "> 
+    <div class="row"> <div class="col-md-3 border-right"> 
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+            <img class="rounded-circle mt-5" ><i
+            class="fa fa-user-circle" style="font-size: 200px;"></i>
+            <span class="font-weight-bold">{{request.user.username}}</span>
+            <span class="text-black-50">{{request.user.email}}</span><span> </span></div> </div> 
+            <div class="col-md-5 border-right"> <div class="p-3 py-5"> 
+                <div class="d-flex justify-content-between align-items-center mb-3"> <h4 class="text-right">Profile Settings</h4>
+                 </div> <div class="row mt-2"> <div class="col-md-6">
+                     <label class="labels">Name</label><div class="form-control"  >{{request.user.first_name}}</div> </div>
+                     <div class="col-md-6"><label class="labels">Surname</label><div class="form-control"  >{{request.user.last_name}}</div></div> </div> 
+                     <div class="row mt-3"> <div class="col-md-12"><label class="labels">Username</label><div class="form-control"  >{{request.user.username}}</div></div> 
+                     <div class="col-md-12"><br><label class="labels">Email ID</label> <div class="form-control"  >{{request.user.email}}</div></div>
 
-</style>
-
-
-<div class="container">
-<div class="row wishdata ">
-    <div class="col-lg-12">
-        <div class="box-element">
-            <h2 class="" style="text-align: center;">ORDER  HISTORY</h2>
-            <br>
-            <br>
-
-
-        </div>
-
-        <br>
-        <div class="box-element ">
-            <div class="cart-row">
-                <div style="flex:2"></div>
-                <div style="flex:1"><strong>Item</strong></div>
-                <div style="flex:1"><strong>Quantity</strong></div>
-                <div style="flex:1"><strong>Price</strong></div>
-
-            </div>
-            
-            {% for order in order %}
-            {% if order.complete == True %}
-            <div class="cart-row product_data">
-                <div style="flex:2"><img class="row-image" src="{{order.product.imageURL}}"></div>
-                <div style="flex:1"><p>{{order.product}}</p></div>
-                <div style="flex:1"><p>{{cp.quantity}}</p></div>
-                <div style="flex:1"><p>Rs.{{cp.product.price|floatformat:2}}</p></div>
-                  
-              
-            </div>
-            {% endif %}
-            {% endfor %}
-
-
-        </div>
-
-
-    </div>
-
-
+                        <div class="mt-5 text-center"><button class="btn btn-info " > <a href="{% url 'changepassword' %}"> Change Password</a>  </button></div>  
+                    </div> </div>  
 </div>
-<br>
-
-
-
-</div>
+</div></div>
 
 
 

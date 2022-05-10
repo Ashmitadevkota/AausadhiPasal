@@ -168,7 +168,7 @@ ul.dropdown-menu.drp-mnu li a i {
     text-decoration: none;
     text-transform: uppercase;
     display: block;
-    background: url(../images/img-sp.png) no-repeat 54px 6px;
+    /* background: url(../images/img-sp.png) no-repeat 54px 6px; */
     line-height: 1;
     height: 97px;
 }

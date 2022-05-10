@@ -1,6 +1,8 @@
 
 from django.conf import settings
-from .forms import UserCreationForm,LoginForm,VerifyForm
+
+from medicines.models import Order
+from .forms import PasswordChangeFormUser, UserCreationForm,LoginForm,VerifyForm
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from .models import PreRegistration
@@ -205,3 +207,23 @@ def verifyUser(request):
 #     except Exception as e:
 #         print(e)
 #     return render(request , 'forget-password.html')
+
+
+
+def changePassword(request):
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(user=request.user.username,complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        if request.method == 'POST':
+            changePasswordForm = PasswordChangeFormUser(user=request.user,data= request.POST)
+            if changePasswordForm.is_valid():
+                changePasswordForm.save()
+                messages.success(request,"Your password is changed successfully !!")
+                return HttpResponseRedirect('/login')
+                
+        else:
+            changePasswordForm = PasswordChangeFormUser(user=request.user)
+        return render(request,'chngepassword.html',{'passwordForm':changePasswordForm,'order':order,'items':items,'cartItems':cartItems})
+    else:
+        return HttpResponseRedirect('/store')
