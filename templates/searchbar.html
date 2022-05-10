@@ -14,7 +14,127 @@
  {% include 'components/header/header.html' %}
 {% block content %}
 
+
 <style>
+
+.card {
+    margin-bottom: 20px;
+    width: 350px;
+    
+}
+
+
+
+
+.card-image img{
+    margin-top: 20px;
+    height: 150px;
+}
+
+.card-inner {
+    padding: 20px
+}
+
+.price span {
+    color: rgb(255, 72, 0);
+    font-weight: 600;
+    font-size: 20px
+}
+
+
+
+.details {
+    border-radius: 20px;
+    width: 110px;
+    height: 40px;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center
+}
+.details:hover{
+    color: black;
+    background-color: white;
+}
+
+.wishlist {
+    width: 40px;
+    height: 38px;
+    border-radius: 5px;
+    color: white;
+    background: rgba(255, 0, 0, 0.658);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s all;
+    font-size: 15px
+}
+
+.wishlist:hover {
+    color: rgb(5, 5, 5);
+    background: #ffffff
+}
+
+ .cart{
+    background-color: rgba(0, 119, 255, 0.753);
+    color: white;
+}
+
+
+
+
+
+</style>
+
+
+
+
+    <!--products-->
+
+ <div class="container">
+    <div class="product_data">
+    <div class="row">
+        <h2 class="text center" style="margin-left: 20px;"> Search Results:  </h5>
+
+            <hr>
+        {% if products %}
+        {% for product in products %}
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 margin d-flex justify-content-center align-items-center">
+            <div class="card" style="height: 350px;"> 
+                <div class="card-image"> <a href="{% url 'product' product.id %}"><img src="{{product.imageURL}}" width="200" hieght="100px"></a> </div>
+                <div class="card-inner"> 
+                    <h5 class="mb-0">{{product.product_name}}</h5>
+                    <span>{{product.brand}}</span>
+                    <div class="price"><span> Rs {{product.price|floatformat:2}}</span>  </div>
+                    
+                    <div class="mt-3 d-flex justify-content-between align-items-center" style="display: flex;"> <a href="{% url 'product' product.id %}"><button class="btn btn-success text-uppercase btn-sm details">Details</button></a>
+                        
+                        <div class="d-flex flex-row" > 
+                            <button  style="margin-left:10px ;" data-product="{{product.id}}" data-action="add" class=" cart btn btn-light mt-1 mr-2 update-cart"> <i class="fas fa-cart-plus"></i>
+                            
+                            </button>
+                           
+ </div>
+                            
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+                
+        {% else %}
+        <p>No Products available </p>
+   {% endif %}
+    </div>
+
+        </div>
+
+
+</div>
+
+
+<!-- <style>
     .details:hover{
     color: black;
     background-color: white;
@@ -35,8 +155,8 @@
                     {% for product in products %}
         
                         <div class="col-md-4">
-                            <div class="card m-3 p-2" style="width: 18rem; height: 25rem; box-shadow: 4px 4px #07070781; border-radius: 25px 15px;">
-                                <img src="{{ product.image.url }}" style="height: 200px; width: 200px;"  class="card-img-top" alt="...">
+                            <div class="card m-3 p-2" style="width: 20rem; height: 20rem;  border-radius: 25px 15px;">
+                                <img src="{{ product.image.url }}" style="height: 120px; width: 200px;"  class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h4 class="card-title mt-1">{{ product.product_name }}</h4>
                                     <h3 style="color: rgb(255, 72, 0); font-size: 20px" class="card-subtitle mt-2">Rs. {{ product.price }}</h3>
@@ -55,10 +175,72 @@
     
             </div>
 
-        </div>
+        </div> -->
+
+
+
 
 
 {% endblock %}
+<script>
+    var updateBtns = document.getElementsByClassName('update-cart')
+  
+  for( i = 0; i < updateBtns.length; i++){
+      updateBtns[i].addEventListener('click', function(){
+          var productId = this.dataset.product
+          var action = this.dataset.action
+          console.log('productId:',productId,'Action:',action)
+  
+          console.log('USER:',user)
+          if(user == 'AnonymousUser'){
+            console.log('Not logged in')
+            
+          }
+          else{
+            updateUSerOrder(productId,action)
+          }
+          
+      })
+  }
+  function updateUSerOrder(productId,action){
+    console.log('User is logged in, Sending data ...')
+  
+    var url = '/update_item/'
+    
+    fetch(url, {
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+  
+      },
+      body:JSON.stringify({'productId': productId, 'action':action})
+    })
+    .then((response) =>{
+      return response.json()
+    })
+    .then((product) =>{
+      console.log('data:', product)
+      location.reload()
+    })
+  
+  }
+
+
+  
+
+  </script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+crossorigin="anonymous"></script>
+
 
 {% include 'components/footer/footer.html' %}
 

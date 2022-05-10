@@ -122,10 +122,10 @@
 }
 
 .card {
-    width: 400px;
+    width: 300px;
     border: none;
     height: 300px;
-    box-shadow: 0px 5px 20px 0px #000203;
+    box-shadow: 0px 0px 1px 0px #000203;
     z-index: 1;
     display: flex;
     justify-content: center;

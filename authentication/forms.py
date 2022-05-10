@@ -2,7 +2,7 @@ from audioop import reverse
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import fields
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm, UsernameField, PasswordChangeForm
 from django.core import validators
 
 
@@ -33,3 +33,8 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"password",'autocomplete':'current-password','class':'form-control'}))    
     
 
+class PasswordChangeFormUser(PasswordChangeForm):
+    old_password = forms.CharField(label=("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password','class':'class','placeholder':'old password'}))
+    new_password1 =forms.CharField(label=("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password','class':'class','placeholder':'new password'})) 
+    new_password2 =forms.CharField(label=("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'new-password','class':'class','placeholder':'confirm password'})) 
+    

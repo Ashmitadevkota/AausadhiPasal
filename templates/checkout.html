@@ -238,7 +238,8 @@ function verifyPayment(payload) {
         .then((response) => response.json())
         .then((data) => {
             console.log('Success:',data);
-            alert('Transaction completed');
+            alertify('Transaction completed');
+        
             window.location.href= "{% url 'store' %}"
         })
         
